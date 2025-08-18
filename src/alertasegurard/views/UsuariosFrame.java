@@ -19,8 +19,7 @@ public class UsuariosFrame extends JFrame {
 
     private JTable tabla;
     private DefaultTableModel modelo;
-    private UsuarioDAO usuarioDAO;
-    private MainMenuFrame parentFrame;
+    private final UsuarioDAO usuarioDAO;
 
     // Componentes para la funcionalidad de búsqueda por cédula.
     private JTextField txtBuscarCedula;
@@ -31,7 +30,6 @@ public class UsuariosFrame extends JFrame {
      * @param parentFrame La ventana principal que se mostrará al cerrar esta ventana.
      */
     public UsuariosFrame(MainMenuFrame parentFrame) {
-        this.parentFrame = parentFrame;
         // Inicializa el objeto DAO para interactuar con la base de datos de usuarios.
         usuarioDAO = new UsuarioDAO();
         setTitle("Gestión de Usuarios");
