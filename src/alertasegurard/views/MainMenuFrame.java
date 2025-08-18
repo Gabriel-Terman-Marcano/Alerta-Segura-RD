@@ -2,10 +2,7 @@
 package alertasegurard.views;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
@@ -14,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.io.File;
 import java.net.URL;
 
 /**
@@ -25,8 +21,8 @@ import java.net.URL;
  */
 public class MainMenuFrame extends JFrame {
     // Referencias a objetos y componentes de la interfaz
-    private Usuario usuarioLogueado;
-    private LoginFrame loginFrame;
+    private final Usuario usuarioLogueado;
+    private final LoginFrame loginFrame;
     private JButton btnUsuarios, btnAlertas, btnAcercaDe, btnSalir;
 
     // Paleta de colores para mantener un diseño coherente.
@@ -528,16 +524,19 @@ public class MainMenuFrame extends JFrame {
         final Point[] mouseDownCompCoords = {null};
 
         addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseReleased(MouseEvent e) {
                 mouseDownCompCoords[0] = null; // Libera las coordenadas al soltar el botón.
             }
 
+            @Override
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords[0] = e.getPoint(); // Guarda la posición inicial del mouse.
             }
         });
 
         addMouseMotionListener(new MouseAdapter() {
+            @Override
             public void mouseDragged(MouseEvent e) {
                 Point currCoords = e.getLocationOnScreen(); // Obtiene la posición actual en la pantalla.
                 // Mueve la ventana basándose en el desplazamiento del mouse.
