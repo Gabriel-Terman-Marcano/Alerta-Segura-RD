@@ -24,10 +24,9 @@ import java.util.List;
  */
 public class AlertasApartado extends JFrame {
 
-    // Atributos de la clase
-    private Usuario usuarioLogueado;
-    private MainMenuFrame parentFrame;
-    private AlertaController alertaController;
+// Atributos de la clase
+    private final MainMenuFrame parentFrame;
+    private final AlertaController alertaController;
     private JPanel cardsPanel;
     private JScrollPane scrollPane;
     private JTextField txtBuscar;
@@ -59,7 +58,6 @@ public class AlertasApartado extends JFrame {
      * @param parentFrame La ventana principal desde donde se accede a este apartado.
      */
     public AlertasApartado(Usuario usuario, MainMenuFrame parentFrame) {
-        this.usuarioLogueado = usuario;
         this.parentFrame = parentFrame;
         this.alertaController = new AlertaController();
 
@@ -293,16 +291,12 @@ public class AlertasApartado extends JFrame {
         if (nivel == null) {
             return new Color(107, 114, 128);
         }
-        switch (nivel.toUpperCase()) {
-            case "ALTA":
-                return ALTA_COLOR;
-            case "MEDIA":
-                return MEDIA_COLOR;
-            case "BAJA":
-                return BAJA_COLOR;
-            default:
-                return new Color(107, 114, 128);
-        }
+        return switch (nivel.toUpperCase()) {
+            case "ALTA" -> ALTA_COLOR;
+            case "MEDIA" -> MEDIA_COLOR;
+            case "BAJA" -> BAJA_COLOR;
+            default -> new Color(107, 114, 128);
+        };
     }
 
     private void buscarAlerta() {
@@ -475,14 +469,17 @@ public class AlertasApartado extends JFrame {
     private void addWindowDragListener() {
         final Point[] mouseDownCompCoords = {null};
         addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseReleased(MouseEvent e) {
                 mouseDownCompCoords[0] = null;
             }
+            @Override
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords[0] = e.getPoint();
             }
         });
         addMouseMotionListener(new MouseAdapter() {
+            @Override
             public void mouseDragged(MouseEvent e) {
                 Point currCoords = e.getLocationOnScreen();
                 if (mouseDownCompCoords[0] != null) {
@@ -498,7 +495,8 @@ public class AlertasApartado extends JFrame {
         dialog.setSize(420, 180);
         dialog.setLocationRelativeTo(this);
 
-        JPanel mainPanel = new JPanel() {
+        JPanel mainPanel;
+        mainPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -509,13 +507,11 @@ public class AlertasApartado extends JFrame {
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
 
                 Color barColor;
-                if (type.equals("success")) {
-                    barColor = new Color(34, 139, 34);
-                } else if (type.equals("error")) {
-                    barColor = PRIMARY_COLOR;
-                } else {
-                    barColor = new Color(255, 140, 0);
-                }
+                barColor = switch (type) {
+                    case "success" -> new Color(34, 139, 34);
+                    case "error" -> PRIMARY_COLOR;
+                    default -> new Color(255, 140, 0);
+                };
 
                 g2d.setColor(barColor);
                 g2d.fillRoundRect(0, 0, getWidth(), 6, 20, 20);
