@@ -21,8 +21,7 @@ import java.net.URL;
  * @author Grupo #1
  */
 public class AcercaDeFrame extends JFrame {
-    private Usuario usuarioLogueado;
-    private JFrame menuAnterior;
+    private final JFrame menuAnterior;
     
     // Paleta de colores de la interfaz
     private final Color PRIMARY_COLOR = new Color(220, 38, 38);
@@ -44,7 +43,6 @@ public class AcercaDeFrame extends JFrame {
      * necesaria para volver a ella.
      */
     public AcercaDeFrame(Usuario usuario, JFrame menuAnterior) {
-        this.usuarioLogueado = usuario;
         this.menuAnterior = menuAnterior;
         setTitle("Alerta Segura RD - Acerca de");
         setSize(650, 750);
@@ -461,16 +459,19 @@ public class AcercaDeFrame extends JFrame {
         final Point[] mouseDownCompCoords = {null};
         
         addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseReleased(MouseEvent e) {
                 mouseDownCompCoords[0] = null;
             }
 
+            @Override
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords[0] = e.getPoint();
             }
         });
 
         addMouseMotionListener(new MouseAdapter() {
+            @Override
             public void mouseDragged(MouseEvent e) {
                 Point currCoords = e.getLocationOnScreen();
                 setLocation(currCoords.x - mouseDownCompCoords[0].x, 
