@@ -25,8 +25,8 @@ public class RegisterFrame extends JFrame {
     private JButton btnRegistrar, btnCancelar;
     
     // Objetos de apoyo para la lógica de negocio y navegación entre ventanas.
-    private UsuarioDAO usuarioDAO;
-    private LoginFrame loginFrame;
+    private final UsuarioDAO usuarioDAO;
+    private final LoginFrame loginFrame;
     
     // Paleta de colores consistente con el resto de la aplicación para mantener la identidad visual.
     private final Color PRIMARY_COLOR = new Color(220, 38, 38);      // Rojo principal para acciones importantes.
@@ -36,6 +36,7 @@ public class RegisterFrame extends JFrame {
     private final Color SURFACE_COLOR = new Color(30, 41, 59);        // Gris azulado para paneles y superficies.
     private final Color TEXT_COLOR = Color.WHITE;                     // Color de texto general.
     private final Color INPUT_BACKGROUND = new Color(51, 65, 85);     // Gris oscuro para los campos de entrada.
+// Gris oscuro para los campos de entrada.
 
     /**
      * Constructor principal de la clase.
@@ -62,14 +63,6 @@ public class RegisterFrame extends JFrame {
         // Llama a los métodos para inicializar los componentes y agregar la funcionalidad de arrastre.
         initComponents();
         addWindowDragListener();
-    }
-
-    /**
-     * Constructor secundario que permite la creación de la ventana sin una referencia al LoginFrame.
-     * Útil para pruebas o si la ventana se lanza desde otro contexto.
-     */
-    RegisterFrame() {
-        this(null);
     }
 
     /**
@@ -580,7 +573,8 @@ public class RegisterFrame extends JFrame {
         dialog.setLocationRelativeTo(this); // Centra el diálogo con respecto a la ventana principal.
         
         // Crea un panel para el contenido del diálogo con un estilo personalizado.
-        JPanel mainPanel = new JPanel() {
+        JPanel mainPanel;
+        mainPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -594,13 +588,13 @@ public class RegisterFrame extends JFrame {
                 
                 // Define el color de la barra superior según el tipo de mensaje.
                 Color barColor;
-                if (type.equals("success")) {
-                    barColor = new Color(34, 139, 34); // Verde para éxito.
-                } else if (type.equals("error")) {
-                    barColor = PRIMARY_COLOR; // Rojo para error.
-                } else {
-                    barColor = new Color(255, 140, 0); // Naranja para advertencia.
-                }
+                barColor = switch (type) {
+                    case "success" -> new Color(34, 139, 34);
+                    case "error" -> PRIMARY_COLOR;
+                    default -> new Color(255, 140, 0);
+                }; // Verde para éxito.
+                // Rojo para error.
+                // Naranja para advertencia.
                 
                 // Dibuja la barra superior indicadora.
                 g2d.setColor(barColor);
