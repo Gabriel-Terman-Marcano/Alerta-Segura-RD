@@ -425,16 +425,19 @@ public class LoginFrame extends JFrame {
         final Point[] mouseDownCompCoords = {null};
 
         addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseReleased(MouseEvent e) {
                 mouseDownCompCoords[0] = null;
             }
 
+            @Override
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords[0] = e.getPoint();
             }
         });
 
         addMouseMotionListener(new MouseAdapter() {
+            @Override
             public void mouseDragged(MouseEvent e) {
                 Point currCoords = e.getLocationOnScreen();
                 setLocation(currCoords.x - mouseDownCompCoords[0].x,
@@ -486,7 +489,8 @@ public class LoginFrame extends JFrame {
         // Hace el diálogo con bordes redondeados
         dialog.setShape(new RoundRectangle2D.Double(0, 0, 400, 150, 20, 20));
 
-        JPanel panel = new JPanel() {
+        JPanel panel;
+        panel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -500,13 +504,13 @@ public class LoginFrame extends JFrame {
 
                 // Barra superior con color según el tipo de mensaje
                 Color barColor;
-                if (type.equals("success")) {
-                    barColor = new Color(34, 139, 34); // Verde para éxito
-                } else if (type.equals("error")) {
-                    barColor = PRIMARY_COLOR; // Rojo para error
-                } else {
-                    barColor = new Color(255, 140, 0); // Naranja para advertencia
-                }
+                barColor = switch (type) {
+                    case "success" -> new Color(34, 139, 34);
+                    case "error" -> PRIMARY_COLOR;
+                    default -> new Color(255, 140, 0);
+                }; // Verde para éxito
+                // Rojo para error
+                // Naranja para advertencia
 
                 // Barra superior indicadora
                 g2d.setColor(barColor);
