@@ -22,10 +22,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 
 public class AgregarAlerta extends JFrame{
@@ -38,8 +34,8 @@ public class AgregarAlerta extends JFrame{
     private String rutaImagen;
     
     // === Variables de negocio y de referencia ===
-    private AlertaDAO alertaDAO; // Objeto para interactuar con la base de datos
-    private AlertasApartado parentFrame; // Referencia a la ventana padre para refrescar la lista de alertas
+    private final AlertaDAO alertaDAO; // Objeto para interactuar con la base de datos
+    private final AlertasApartado parentFrame; // Referencia a la ventana padre para refrescar la lista de alertas
 
     // === Paleta de colores utilizada para el diseño de la interfaz ===
     private final Color PRIMARY_COLOR = new Color(220, 38, 38);
@@ -49,7 +45,6 @@ public class AgregarAlerta extends JFrame{
     private final Color SURFACE_COLOR = new Color(30, 41, 59);
     private final Color TEXT_COLOR = Color.WHITE;
     private final Color INPUT_BACKGROUND = new Color(51, 65, 85);
-    private final Color CARD_BACKGROUND = new Color(30, 41, 59, 180);
 
     /**
      * Constructor de la clase AgregarAlerta.
@@ -229,9 +224,11 @@ public class AgregarAlerta extends JFrame{
         
         // Listener para simular el borde de enfoque de los JTextfields
         nivelComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
             public void focusGained(java.awt.event.FocusEvent evt) {
                 nivelComboBox.setBorder(BorderFactory.createLineBorder(PRIMARY_COLOR, 2, true));
             }
+            @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nivelComboBox.setBorder(BorderFactory.createLineBorder(INPUT_BACKGROUND, 1, true));
             }
@@ -465,16 +462,19 @@ public class AgregarAlerta extends JFrame{
         final Point[] mouseDownCompCoords = {null};
         
         addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseReleased(MouseEvent e) {
                 mouseDownCompCoords[0] = null;
             }
 
+            @Override
             public void mousePressed(MouseEvent e) {
                 mouseDownCompCoords[0] = e.getPoint();
             }
         });
 
         addMouseMotionListener(new MouseAdapter() {
+            @Override
             public void mouseDragged(MouseEvent e) {
                 Point currCoords = e.getLocationOnScreen();
                 setLocation(currCoords.x - mouseDownCompCoords[0].x, currCoords.y - mouseDownCompCoords[0].y);
@@ -574,7 +574,8 @@ public class AgregarAlerta extends JFrame{
         dialog.setSize(420, 180);
         dialog.setLocationRelativeTo(this);
         
-        JPanel mainPanel = new JPanel() {
+        JPanel mainPanel;
+        mainPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -588,13 +589,11 @@ public class AgregarAlerta extends JFrame{
                 
                 // Pinta una barra de color en la parte superior del diálogo según el tipo de mensaje
                 Color barColor;
-                if (type.equals("success")) {
-                    barColor = new Color(34, 139, 34);
-                } else if (type.equals("error")) {
-                    barColor = PRIMARY_COLOR;
-                } else {
-                    barColor = new Color(255, 140, 0);
-                }
+                barColor = switch (type) {
+                    case "success" -> new Color(34, 139, 34);
+                    case "error" -> PRIMARY_COLOR;
+                    default -> new Color(255, 140, 0);
+                };
                 
                 g2d.setColor(barColor);
                 g2d.fillRoundRect(0, 0, getWidth(), 6, 20, 20);
