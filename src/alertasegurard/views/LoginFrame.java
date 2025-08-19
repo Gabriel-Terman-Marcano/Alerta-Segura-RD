@@ -31,9 +31,17 @@ public class LoginFrame extends JFrame {
     private UsuarioDAO usuarioDAO;
 
     // Constantes de colores para un diseño consistente
-    private final Color PRIMARY_COLOR = new Color(220, 38, 38);
-    private final Color SECONDARY_COLOR = new Color(185, 28, 28);
-    private final Color ACCENT_COLOR = new Color(239, 68, 68);
+    // Paleta de colores AZULES
+    private final Color PRIMARY_COLOR = new Color(29, 78, 216);
+    private final Color SECONDARY_COLOR = new Color(30, 64, 175);
+    private final Color ACCENT_COLOR = new Color(59, 130, 246);
+    
+    // Paleta de colores ROJOS para el botón de salir
+    private final Color EXIT_PRIMARY_COLOR = new Color(220, 38, 38); // Rojo intenso
+    private final Color EXIT_SECONDARY_COLOR = new Color(185, 28, 28); // Rojo más oscuro
+    private final Color EXIT_ACCENT_COLOR = new Color(248, 113, 113); // Rojo claro al pasar el cursor
+    
+    // Paleta de colores GRISES/NEGROS para el fondo
     private final Color BACKGROUND_COLOR = new Color(15, 23, 42);
     private final Color SURFACE_COLOR = new Color(30, 41, 59);
     private final Color TEXT_COLOR = Color.WHITE;
@@ -234,7 +242,7 @@ public class LoginFrame extends JFrame {
             this.setVisible(false);
         });
 
-        btnSalir = createSecondaryButton("SALIR");
+        btnSalir = createExitButton("SALIR");
         btnSalir.addActionListener(e -> System.exit(0));
 
         buttonPanel.add(btnRegistrar);
@@ -377,6 +385,44 @@ public class LoginFrame extends JFrame {
             }
         };
         button.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        button.setOpaque(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return button;
+    }
+
+    /**
+     * Crea un botón de salida (rojo) con un estilo visual personalizado.
+     * @param text El texto a mostrar en el botón.
+     * @return Un JButton estilizado.
+     */
+    private JButton createExitButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                Color bgColor = getModel().isPressed() ? EXIT_SECONDARY_COLOR :
+                        getModel().isRollover() ? EXIT_ACCENT_COLOR : EXIT_PRIMARY_COLOR;
+
+                // Gradiente del botón
+                GradientPaint gp = new GradientPaint(0, 0, bgColor, 0, getHeight(),
+                        new Color(bgColor.getRed() - 20, bgColor.getGreen() - 20, bgColor.getBlue() - 20));
+                g2d.setPaint(gp);
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+
+                // Texto del botón
+                g2d.setColor(Color.WHITE);
+                g2d.setFont(getFont());
+                FontMetrics fm = g2d.getFontMetrics();
+                int x = (getWidth() - fm.stringWidth(getText())) / 2;
+                int y = (getHeight() + fm.getAscent()) / 2 - 2;
+                g2d.drawString(getText(), x, y);
+            }
+        };
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
         button.setOpaque(false);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
