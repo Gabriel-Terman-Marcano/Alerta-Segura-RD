@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class AlertasApartado extends JFrame {
 
-// Atributos de la clase
+    // Atributos de la clase
     private final MainMenuFrame parentFrame;
     private final AlertaController alertaController;
     private JPanel cardsPanel;
@@ -32,20 +32,20 @@ public class AlertasApartado extends JFrame {
     private JTextField txtBuscar;
     private JButton btnAgregarAlerta, btnVolver;
 
-    // Constantes de colores para un diseño consistente
-    private final Color PRIMARY_COLOR = new Color(220, 38, 38);
-    private final Color SECONDARY_COLOR = new Color(185, 28, 28);
-    private final Color ACCENT_COLOR = new Color(239, 68, 68);
-    private final Color BACKGROUND_COLOR = new Color(15, 23, 42);
-    private final Color SURFACE_COLOR = new Color(30, 41, 59);
+    // Constantes de colores para un diseño consistente (Paleta de color azul)
+    private final Color PRIMARY_COLOR = new Color(59, 130, 246);   // Azul principal
+    private final Color SECONDARY_COLOR = new Color(37, 99, 235);  // Azul más oscuro para botones
+    private final Color ACCENT_COLOR = new Color(96, 165, 250);    // Azul claro para hover
+    private final Color BACKGROUND_COLOR = new Color(17, 24, 39);   // Fondo oscuro
+    private final Color SURFACE_COLOR = new Color(31, 41, 55);    // Superficie de tarjetas/paneles
     private final Color TEXT_COLOR = Color.WHITE;
-    private final Color CARD_BACKGROUND = new Color(51, 65, 85);
-    private final Color BORDER_COLOR = new Color(71, 85, 105, 100);
+    private final Color CARD_BACKGROUND = new Color(55, 65, 81);
+    private final Color BORDER_COLOR = new Color(75, 85, 99, 100);
 
     // Colores específicos para los niveles de alerta
-    private final Color ALTA_COLOR = new Color(220, 38, 38);
-    private final Color MEDIA_COLOR = new Color(255, 193, 7);
-    private final Color BAJA_COLOR = new Color(0, 163, 163);
+    private final Color ALTA_COLOR = new Color(239, 68, 68);   // Rojo
+    private final Color MEDIA_COLOR = new Color(251, 191, 36);  // Amarillo
+    private final Color BAJA_COLOR = new Color(34, 197, 94);    // Verde
 
     // Variable para la imagen de fondo
     private ImageIcon backgroundImage;
@@ -445,10 +445,10 @@ public class AlertasApartado extends JFrame {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                Color bgColor = getModel().isPressed() ? new Color(71, 85, 105) : getModel().isRollover() ? new Color(51, 65, 85) : new Color(30, 41, 59);
+                Color bgColor = getModel().isPressed() ? new Color(75, 85, 99) : getModel().isRollover() ? new Color(55, 65, 81) : new Color(31, 41, 55);
                 g2d.setColor(bgColor);
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
-                g2d.setColor(new Color(71, 85, 105));
+                g2d.setColor(new Color(75, 85, 99));
                 g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 8, 8);
                 g2d.setColor(TEXT_COLOR);
                 g2d.setFont(getFont());
@@ -508,14 +508,14 @@ public class AlertasApartado extends JFrame {
 
                 Color barColor;
                 barColor = switch (type) {
-                    case "success" -> new Color(34, 139, 34);
-                    case "error" -> PRIMARY_COLOR;
-                    default -> new Color(255, 140, 0);
+                    case "success" -> new Color(34, 197, 94);
+                    case "error" -> ALTA_COLOR;
+                    default -> new Color(251, 191, 36);
                 };
 
                 g2d.setColor(barColor);
                 g2d.fillRoundRect(0, 0, getWidth(), 6, 20, 20);
-                g2d.setColor(new Color(71, 85, 105));
+                g2d.setColor(new Color(75, 85, 99));
                 g2d.setStroke(new BasicStroke(1));
                 g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
             }
@@ -555,12 +555,12 @@ public class AlertasApartado extends JFrame {
                 if (isPrimary) {
                     bgColor = getModel().isPressed() ? SECONDARY_COLOR : getModel().isRollover() ? ACCENT_COLOR : PRIMARY_COLOR;
                 } else {
-                    bgColor = getModel().isPressed() ? new Color(71, 85, 105) : getModel().isRollover() ? new Color(51, 65, 85) : new Color(30, 41, 59);
+                    bgColor = getModel().isPressed() ? new Color(75, 85, 99) : getModel().isRollover() ? new Color(55, 65, 81) : new Color(31, 41, 55);
                 }
                 g2d.setColor(bgColor);
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
                 if (!isPrimary) {
-                    g2d.setColor(new Color(71, 85, 105));
+                    g2d.setColor(new Color(75, 85, 99));
                     g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 8, 8);
                 }
                 g2d.setColor(Color.WHITE);
