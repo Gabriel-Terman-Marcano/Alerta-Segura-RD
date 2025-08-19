@@ -23,23 +23,29 @@ import java.net.URL;
 public class AcercaDeFrame extends JFrame {
     private final JFrame menuAnterior;
     
-    // Paleta de colores de la interfaz
-    private final Color PRIMARY_COLOR = new Color(220, 38, 38);
-    private final Color SECONDARY_COLOR = new Color(185, 28, 28);
-    private final Color ACCENT_COLOR = new Color(239, 68, 68);
-    private final Color BACKGROUND_COLOR = new Color(15, 23, 42);
-    private final Color SURFACE_COLOR = new Color(30, 41, 59);
+    // Paleta de colores de la interfaz (AZUL)
+    private final Color PRIMARY_COLOR_AZUL = new Color(29, 78, 216); // Azul vibrante
+    private final Color SECONDARY_COLOR_AZUL = new Color(30, 64, 175); // Azul más oscuro
+    private final Color ACCENT_COLOR_AZUL = new Color(59, 130, 246); // Azul más claro para hover
+    
+    // Paleta de colores del manual de usuario (ROJA)
+    private final Color PRIMARY_COLOR_ROJO = new Color(220, 38, 38); // Rojo vibrante
+    private final Color SECONDARY_COLOR_ROJO = new Color(185, 28, 28); // Rojo más oscuro
+    private final Color ACCENT_COLOR_ROJO = new Color(239, 68, 68); // Rojo más claro para hover
+    
+    private final Color BACKGROUND_COLOR = new Color(15, 23, 42); // Gris oscuro casi negro
+    private final Color SURFACE_COLOR = new Color(30, 41, 59); // Tono de gris para superficies
     private final Color TEXT_COLOR = Color.WHITE;
     private final Color SECONDARY_TEXT = new Color(156, 163, 175);
-    private final Color CARD_BACKGROUND = new Color(51, 65, 85);
+    private final Color CARD_BACKGROUND = new Color(42, 53, 75); // Fondo de las tarjetas
 
     // Variable para la imagen de fondo
     private ImageIcon backgroundImage;
     /**
      * Constructor de la clase AcercaDeFrame.
      *
-     * @param usuario        El objeto Usuario del usuario actualmente logueado.
-     * @param menuAnterior   La instancia de la ventana del menú principal,
+     * @param usuario    El objeto Usuario del usuario actualmente logueado.
+     * @param menuAnterior La instancia de la ventana del menú principal,
      * necesaria para volver a ella.
      */
     public AcercaDeFrame(Usuario usuario, JFrame menuAnterior) {
@@ -88,7 +94,7 @@ public class AcercaDeFrame extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
-               
+                
                 // Dibuja la imagen de fondo si está disponible
                 if (backgroundImage != null) {
                     g2d.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
@@ -154,7 +160,7 @@ public class AcercaDeFrame extends JFrame {
                 
                 GradientPaint gp = new GradientPaint(
                     0, 0, new Color(255, 255, 255, 0),
-                    getWidth() / 2f, 0, PRIMARY_COLOR
+                    getWidth() / 2f, 0, PRIMARY_COLOR_AZUL
                 );
                 g2d.setPaint(gp);
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 2, 2);
@@ -199,11 +205,11 @@ public class AcercaDeFrame extends JFrame {
         card.add(cardTitle);
         
         String infoText = "<html><div style='line-height: 1.6; color: #9CA3AF;'>" +
-            "<b style='color: #EF4444;'>Versión:</b> 1.0.0<br><br>" +
-            "<b style='color: #EF4444;'>Propósito:</b> Solución integral para la gestión de alertas " +
+            "<b style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + ";'>Versión:</b> 1.0.0<br><br>" +
+            "<b style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + ";'>Propósito:</b> Solución integral para la gestión de alertas " +
             "y preparación ciudadana ante desastres naturales en República Dominicana.<br><br>" +
-            "<b style='color: #EF4444;'>Tecnologías:</b> Java Swing, MySQL, MVC Architecture<br>" +
-            "<b style='color: #EF4444;'>Estado:</b> Producción" +
+            "<b style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + ";'>Tecnologías:</b> Java Swing, MySQL, MVC Architecture<br>" +
+            "<b style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + ";'>Estado:</b> Producción" +
             "</div></html>";
             
         JLabel infoLabel = new JLabel(infoText);
@@ -230,15 +236,15 @@ public class AcercaDeFrame extends JFrame {
         
         String teamText = "<html><div style='line-height: 1.8; color: #9CA3AF;'>" +
             "<div style='margin: 8px 0;'>" +
-            "<span style='color: #EF4444; font-weight: bold;'>Líder del Proyecto</span><br>" +
+            "<span style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + "; font-weight: bold;'>Líder del Proyecto</span><br>" +
             "Candelaria Pereyra" +
             "</div>" +
             "<div style='margin: 8px 0;'>" +
-            "<span style='color: #EF4444; font-weight: bold;'>Database Administrator</span><br>" +
+            "<span style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + "; font-weight: bold;'>Database Administrator</span><br>" +
             "Gabriel Terman" +
             "</div>" +
             "<div style='margin: 8px 0;'>" +
-            "<span style='color: #EF4444; font-weight: bold;'>SQA & UI Designer</span><br>" +
+            "<span style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + "; font-weight: bold;'>SQA & UI Designer</span><br>" +
             "Dalexa Matos" +
             "</div>" +
             "</div></html>";
@@ -266,14 +272,14 @@ public class AcercaDeFrame extends JFrame {
         card.add(cardTitle);
         
         String featuresText = "<html><div style='line-height: 1.6; color: #9CA3AF;'>" +
-            "• <b style='color: #FFF;'>Gestión de Usuarios</b><br>" +
-            "  Registro y administración<br><br>" +
-            "• <b style='color: #FFF;'>Sistema de Alertas</b><br>" +
-            "  Alertas por zona y tipo<br><br>" +
-            "• <b style='color: #FFF;'>Notificaciones</b><br>" +
-            "  Tiempo real y historial<br><br>" +
-            "• <b style='color: #FFF;'>Reportes</b><br>" +
-            "  Estadísticas y análisis" +
+            "• <b style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + ";'>Gestión de Usuarios</b><br>" +
+            "&nbsp; Registro y administración<br><br>" +
+            "• <b style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + ";'>Sistema de Alertas</b><br>" +
+            "&nbsp; Alertas por zona y tipo<br><br>" +
+            "• <b style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + ";'>Notificaciones</b><br>" +
+            "&nbsp; Tiempo real y historial<br><br>" +
+            "• <b style='color: " + toHtmlColor(ACCENT_COLOR_AZUL) + ";'>Reportes</b><br>" +
+            "&nbsp; Estadísticas y análisis" +
             "</div></html>";
             
         JLabel featuresLabel = new JLabel(featuresText);
@@ -363,8 +369,8 @@ public class AcercaDeFrame extends JFrame {
     /**
      * Crea un botón de acción con un estilo visual personalizado.
      *
-     * @param text      El texto que se mostrará en el botón.
-     * @param isPrimary Define si el botón tendrá el estilo primario (rojo) o secundario (gris).
+     * @param text     El texto que se mostrará en el botón.
+     * @param isPrimary Define si el botón tendrá el estilo primario (azul) o secundario (gris).
      * @return El JButton estilizado.
      */
     private JButton createActionButton(String text, boolean isPrimary) {
@@ -376,15 +382,15 @@ public class AcercaDeFrame extends JFrame {
                 
                 Color bgColor;
                 if (isPrimary) {
-                    bgColor = getModel().isPressed() ? SECONDARY_COLOR : 
-                              getModel().isRollover() ? ACCENT_COLOR : PRIMARY_COLOR;
+                    bgColor = getModel().isPressed() ? SECONDARY_COLOR_AZUL : 
+                               getModel().isRollover() ? ACCENT_COLOR_AZUL : PRIMARY_COLOR_AZUL;
                     
                     GradientPaint gp = new GradientPaint(0, 0, bgColor, 0, getHeight(), 
                         new Color(bgColor.getRed() - 15, bgColor.getGreen() - 15, bgColor.getBlue() - 15));
                     g2d.setPaint(gp);
                 } else {
                     bgColor = getModel().isPressed() ? new Color(71, 85, 105) : 
-                              getModel().isRollover() ? new Color(51, 65, 85) : CARD_BACKGROUND;
+                               getModel().isRollover() ? new Color(51, 65, 85) : CARD_BACKGROUND;
                     g2d.setColor(bgColor);
                 }
                 
@@ -426,8 +432,8 @@ public class AcercaDeFrame extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
-                Color bgColor = getModel().isPressed() ? PRIMARY_COLOR : 
-                               getModel().isRollover() ? ACCENT_COLOR : 
+                Color bgColor = getModel().isPressed() ? PRIMARY_COLOR_AZUL : 
+                               getModel().isRollover() ? ACCENT_COLOR_AZUL : 
                                new Color(255, 255, 255, 0);
                 
                 g2d.setColor(bgColor);
@@ -541,7 +547,7 @@ public class AcercaDeFrame extends JFrame {
                 
                 SISTEMA DE ALERTAS
                 • Crear Alertas: Por tipo de desastre y zona
-                • Gestionar:  Eiminar alertas activas
+                • Gestionar:  Eliminar alertas activas
                 • Visualizar: Ver historial y estado actual
                 • Notificar: Envío automático a usuarios registrados
                 
@@ -581,7 +587,7 @@ public class AcercaDeFrame extends JFrame {
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         
-        JButton closeManualBtn = createActionButton("CERRAR", true);
+        JButton closeManualBtn = createActionButtonManual("CERRAR");
         closeManualBtn.addActionListener(e -> manualDialog.dispose());
         
         JPanel buttonPanel = new JPanel();
@@ -594,5 +600,54 @@ public class AcercaDeFrame extends JFrame {
         
         manualDialog.add(mainPanel);
         manualDialog.setVisible(true);
+    }
+    
+    /**
+     * Crea un botón de acción con un estilo visual personalizado para el manual.
+     *
+     * @param text El texto que se mostrará en el botón.
+     * @return El JButton estilizado.
+     */
+    private JButton createActionButtonManual(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                
+                Color bgColor = getModel().isPressed() ? SECONDARY_COLOR_ROJO : 
+                               getModel().isRollover() ? ACCENT_COLOR_ROJO : PRIMARY_COLOR_ROJO;
+                
+                GradientPaint gp = new GradientPaint(0, 0, bgColor, 0, getHeight(), 
+                    new Color(bgColor.getRed() - 15, bgColor.getGreen() - 15, bgColor.getBlue() - 15));
+                g2d.setPaint(gp);
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
+                
+                g2d.setColor(Color.WHITE);
+                g2d.setFont(getFont());
+                FontMetrics fm = g2d.getFontMetrics();
+                int x = (getWidth() - fm.stringWidth(getText())) / 2;
+                int y = (getHeight() + fm.getAscent()) / 2 - 2;
+                g2d.drawString(getText(), x, y);
+            }
+        };
+        
+        button.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        button.setOpaque(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(150, 45));
+        
+        return button;
+    }
+    
+    /**
+     * Convierte un objeto Color a su representación de cadena hexadecimal.
+     * @param color El objeto Color a convertir.
+     * @return La cadena hexadecimal del color (por ejemplo, "#FF4444").
+     */
+    private String toHtmlColor(Color color) {
+        return String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
     }
 }
