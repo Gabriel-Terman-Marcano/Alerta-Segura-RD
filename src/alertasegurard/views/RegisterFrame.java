@@ -14,7 +14,6 @@ import java.awt.geom.RoundRectangle2D;
  * Clase que representa la ventana de registro de usuario.
  * Provee una interfaz gráfica (GUI) con un diseño personalizado
  * para que los usuarios puedan crear una nueva cuenta en el sistema.
- * 
  * @author Grupo #1
  */
 public class RegisterFrame extends JFrame {
@@ -29,14 +28,14 @@ public class RegisterFrame extends JFrame {
     private final LoginFrame loginFrame;
     
     // Paleta de colores consistente con el resto de la aplicación para mantener la identidad visual.
-    private final Color PRIMARY_COLOR = new Color(220, 38, 38);      // Rojo principal para acciones importantes.
-    private final Color SECONDARY_COLOR = new Color(185, 28, 28);    // Rojo más oscuro para efectos de 'press'.
-    private final Color ACCENT_COLOR = new Color(239, 68, 68);        // Rojo claro para efectos de 'hover'.
-    private final Color BACKGROUND_COLOR = new Color(15, 23, 42);     // Azul muy oscuro para el fondo principal.
-    private final Color SURFACE_COLOR = new Color(30, 41, 59);        // Gris azulado para paneles y superficies.
-    private final Color TEXT_COLOR = Color.WHITE;                     // Color de texto general.
-    private final Color INPUT_BACKGROUND = new Color(51, 65, 85);     // Gris oscuro para los campos de entrada.
-// Gris oscuro para los campos de entrada.
+    private final Color PRIMARY_COLOR = new Color(30, 144, 255);       // Azul principal para acciones importantes.
+    private final Color SECONDARY_COLOR = new Color(25, 118, 210);     // Azul más oscuro para efectos de 'press'.
+    private final Color ACCENT_COLOR = new Color(64, 169, 255);          // Azul claro para efectos de 'hover'.
+    private final Color BACKGROUND_COLOR = new Color(8, 15, 29);       // Azul muy oscuro para el fondo principal.
+    private final Color SURFACE_COLOR = new Color(16, 27, 45);         // Azul grisáceo para paneles y superficies.
+    private final Color TEXT_COLOR = Color.WHITE;                      // Color de texto general.
+    private final Color INPUT_BACKGROUND = new Color(25, 40, 65);      // Azul oscuro para los campos de entrada.
+    private final Color CANCEL_COLOR = new Color(178, 34, 34);         // Rojo oscuro para el botón de cancelar.
 
     /**
      * Constructor principal de la clase.
@@ -148,7 +147,7 @@ public class RegisterFrame extends JFrame {
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
                 // Dibuja el fondo del panel con transparencia y bordes redondeados.
-                g2d.setColor(new Color(30, 41, 59, 180));
+                g2d.setColor(new Color(16, 27, 45, 180));
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
                 
                 // Dibuja un borde sutil alrededor del panel.
@@ -255,8 +254,8 @@ public class RegisterFrame extends JFrame {
 
         yPosition += 65;
 
-        // Botón CANCELAR
-        btnCancelar = createSecondaryButton("CANCELAR");
+        // Botón CANCELAR - AHORA EN ROJO
+        btnCancelar = createRedButton("CANCELAR");
         btnCancelar.setBounds(30, yPosition, 410, 40);
         // Agrega un listener para regresar a la ventana de login.
         btnCancelar.addActionListener(e -> cancelarRegistro());
@@ -377,6 +376,45 @@ public class RegisterFrame extends JFrame {
     }
 
     /**
+     * Crea un botón con un estilo rojo para acciones de "cancelar" o "destructivas".
+     *
+     * @param text El texto a mostrar en el botón.
+     * @return JButton con el estilo rojo.
+     */
+    private JButton createRedButton(String text) {
+        JButton button = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                Color bgColor = getModel().isPressed() ? new Color(139, 0, 0) :
+                                getModel().isRollover() ? new Color(205, 50, 50) :
+                                CANCEL_COLOR;
+
+                g2d.setColor(bgColor);
+                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+
+                g2d.setColor(new Color(255, 100, 100)); // Un borde más claro.
+                g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 8, 8);
+
+                g2d.setColor(Color.WHITE);
+                g2d.setFont(getFont());
+                FontMetrics fm = g2d.getFontMetrics();
+                int x = (getWidth() - fm.stringWidth(getText())) / 2;
+                int y = (getHeight() + fm.getAscent()) / 2 - 2;
+                g2d.drawString(getText(), x, y);
+            }
+        };
+        button.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        button.setOpaque(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return button;
+    }
+    
+    /**
      * Crea un botón secundario con estilo personalizado (fondo sólido, borde y bordes redondeados).
      *
      * @param text El texto a mostrar en el botón.
@@ -390,15 +428,15 @@ public class RegisterFrame extends JFrame {
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 
                 // Define el color de fondo basado en el estado del botón.
-                Color bgColor = getModel().isPressed() ? new Color(71, 85, 105) : 
-                               getModel().isRollover() ? new Color(51, 65, 85) : 
-                               new Color(30, 41, 59);
+                Color bgColor = getModel().isPressed() ? new Color(25, 40, 65) : 
+                               getModel().isRollover() ? new Color(16, 27, 45) : 
+                               new Color(8, 15, 29);
                 
                 g2d.setColor(bgColor);
                 g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
                 
                 // Dibuja un borde sutil alrededor del botón.
-                g2d.setColor(new Color(71, 85, 105));
+                g2d.setColor(new Color(40, 65, 100));
                 g2d.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 8, 8);
                 
                 // Dibuja el texto centrado del botón.
@@ -589,12 +627,10 @@ public class RegisterFrame extends JFrame {
                 // Define el color de la barra superior según el tipo de mensaje.
                 Color barColor;
                 barColor = switch (type) {
-                    case "success" -> new Color(34, 139, 34);
-                    case "error" -> PRIMARY_COLOR;
-                    default -> new Color(255, 140, 0);
-                }; // Verde para éxito.
-                // Rojo para error.
-                // Naranja para advertencia.
+                    case "success" -> new Color(34, 139, 34); // Verde para éxito.
+                    case "error" -> PRIMARY_COLOR; // Azul para error.
+                    default -> new Color(255, 140, 0); // Naranja para advertencia.
+                };
                 
                 // Dibuja la barra superior indicadora.
                 g2d.setColor(barColor);
@@ -674,9 +710,9 @@ public class RegisterFrame extends JFrame {
                     bgColor = getModel().isPressed() ? SECONDARY_COLOR : 
                               getModel().isRollover() ? ACCENT_COLOR : PRIMARY_COLOR;
                 } else {
-                    bgColor = getModel().isPressed() ? new Color(71, 85, 105) : 
-                              getModel().isRollover() ? new Color(51, 65, 85) : 
-                              new Color(30, 41, 59);
+                    bgColor = getModel().isPressed() ? new Color(25, 40, 65) : 
+                              getModel().isRollover() ? new Color(16, 27, 45) : 
+                              new Color(8, 15, 29);
                 }
                 
                 g2d.setColor(bgColor);
@@ -684,7 +720,7 @@ public class RegisterFrame extends JFrame {
                 
                 // Dibuja un borde para los botones secundarios.
                 if (!isPrimary) {
-                    g2d.setColor(new Color(71, 85, 105));
+                    g2d.setColor(new Color(40, 65, 100));
                     g2d.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 8, 8);
                 }
                 
