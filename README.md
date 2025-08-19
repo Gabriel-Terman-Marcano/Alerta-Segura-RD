@@ -26,14 +26,21 @@ Brindar a los ciudadanos una herramienta confiable para recibir información cla
 
 ## Estructura de la Aplicación
 - **Pantalla de Login**
+- <img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/d7699b93-6cad-438d-8245-2624483174bc" />
+
 - **Pantalla de Registro**
+- <img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/239f5078-7ddf-4113-957c-701e4e3c04dc" />
+
 - **Menú Principal**
   - Gestion de alertas (administrador)
   - Alertas
   - Acerca de
   - Cerrar Sesión
+  - <img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/2905c71e-2468-4fba-a20c-9d316f7ac7d7" />
+
 - **Apartado de Alertas**
   - Alertas destacadas 
+<img width="400" height="500" alt="image" src="https://github.com/user-attachments/assets/68717756-8049-41f2-ab7e-404c1c9647ba" />
 
 ---
 
